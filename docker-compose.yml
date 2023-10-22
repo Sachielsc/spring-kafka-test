@@ -9,7 +9,8 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
     healthcheck:
-      test: "echo stat | nc localhost $ZOOKEEPER_CLIENT_PORT"
+      test: "echo stat | nc localhost $${ZOOKEEPER_CLIENT_PORT}"
+      # $$ is used to escape the $ character, preventing Docker Compose from interpreting it as a variable and allowing it to be passed as-is to the container.
       start_period: 20s
 
   kafka:
