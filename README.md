@@ -1,5 +1,10 @@
 # Spring Kafka test example
+## My fork info
+Originally forked from [kasramp's spring-kafka-test](https://github.com/kasramp/spring-kafka-test)
 
+Click [here](https://www.geekyhacker.com/test-spring-kafka-consumer-and-producer-with-embeddedkafka/) to check its tutorial
+
+## Description
 Spring Kafka example with JUnit 5 using EmbeddedKafka/`spring-kafka-test` and also using [Testcontainers](https://www.testcontainers.org/).
 
 For the tutorials check the links below,
