@@ -15,8 +15,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
@@ -57,6 +56,7 @@ class UserKafkaTestcontainersTest {
         userKafkaProducer.writeToKafka(user);
 
         verify(userService, timeout(5000)).save(captor.capture());
+        assertNull(captor.getValue(), "debug!!!!!!!!!!!" + captor.toString());
         assertNotNull(captor.getValue());
         assertEquals("11111", captor.getValue().getUuid());
         assertEquals("John", captor.getValue().getFirstName());
