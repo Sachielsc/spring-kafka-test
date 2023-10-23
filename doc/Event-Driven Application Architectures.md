@@ -606,18 +606,5 @@ Testcontainers is an open source framework for providing throwaway, lightweight 
 
 In many cases, the choice between them depends on the specific testing needs and the overall architecture of your application.
 
-# Misc & TODOs
-## Notes when running the program "spring-kafka" (TODO: not working ATM)
-As Kafka topics are not created automatically by default, this application requires that you create the following topics manually.
-```
-$ bin/kafka-topics.sh --create --bootstrap-server localhost:2181 --replication-factor 1 --partitions 1 --topic baeldung
-```
-```
-$ bin/kafka-topics.sh --create --bootstrap-server localhost:2181 --replication-factor 1 --partitions 5 --topic partitioned
-```
-```
-$ bin/kafka-topics.sh --create --bootstrap-server localhost:2181 --replication-factor 1 --partitions 1 --topic filtered
-```
-```
-$ bin/kafka-topics.sh --create --bootstrap-server localhost:2181 --replication-factor 1 --partitions 1 --topic greeting
-```
+### what is kafdrop
+Kafdrop is an open-source web-based UI (User Interface) tool designed for monitoring and managing Apache Kafka clusters. Apache Kafka is a distributed streaming platform that is widely used for building real-time data pipelines and streaming applications. Kafdrop provides a convenient way to visualize and interact with Kafka topics, brokers, and consumers.

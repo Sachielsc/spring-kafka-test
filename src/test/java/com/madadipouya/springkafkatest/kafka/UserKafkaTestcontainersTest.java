@@ -56,7 +56,7 @@ class UserKafkaTestcontainersTest {
         userKafkaProducer.writeToKafka(user);
 
         verify(userService, timeout(5000)).save(captor.capture());
-        assertNull(captor.getValue(), "debug!!!!!!!!!!!" + captor.toString());
+        // assertNull(captor.getValue(), "debug!!!!!!!!!!!" + captor.toString());
         assertNotNull(captor.getValue());
         assertEquals("11111", captor.getValue().getUuid());
         assertEquals("John", captor.getValue().getFirstName());
