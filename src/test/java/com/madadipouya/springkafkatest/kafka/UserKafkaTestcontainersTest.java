@@ -20,6 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
+/** 
+ * repo:
+ * https://github.com/Sachielsc/spring-kafka-test
+ * tutorial:
+ * https://www.geekyhacker.com/write-kafka-integration-test-with-testcontainers/
+*/
 @Testcontainers
 @SpringBootTest
 class UserKafkaTestcontainersTest {

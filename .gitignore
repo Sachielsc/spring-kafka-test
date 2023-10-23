@@ -27,3 +27,8 @@ target/
 *.iml
 
 .DS_Store
+
+# Java files
+.classpath
+.project
+.settings/
