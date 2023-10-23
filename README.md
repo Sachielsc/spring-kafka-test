@@ -2,9 +2,25 @@
 ## My fork info
 Originally forked from [kasramp's spring-kafka-test](https://github.com/kasramp/spring-kafka-test)
 
-Click [here](https://www.geekyhacker.com/test-spring-kafka-consumer-and-producer-with-embeddedkafka/) to check its tutorial
+Click [here](https://www.geekyhacker.com/test-spring-kafka-consumer-and-producer-with-embeddedkafka/) to check its first tutorial "Test Spring Kafka consumer and producer with EmbeddedKafka"
 
-## Description
+Click [here](https://www.geekyhacker.com/write-kafka-integration-test-with-testcontainers/) to check the article "Write Kafka integration test with Testcontainers"
+
+## My Readme
+This article is useful for anyone who uses Spring or Spring Boot with Spring Kafka library. If you use the low-level Apache Kafka library or even Spring Cloud Stream Kafka, you need to look somewhere else. Here, we only cover how to test Spring Kafka components.
+
+For testing, we are going to use another Spring library that is called spring-kafka-test. It provides much functionality to ease our job in the testing process and takes care of lots of headaches. Additionally, we use JUnit 5, not 4. If you still are using JUnit 4, you may need to change some of the annotations accordingly.
+
+The first article is about using `EmbeddedKafka` only. But this repo working example contains both EmbeddedKafka and Kafka Testcontainers examples. Click [here](https://www.geekyhacker.com/write-kafka-integration-test-with-testcontainers/) to check the next article about using test containers.
+
+## How to test
+After initialize and run the app, use this command in the Unix terminal:
+1. Run the Kafka integration test with Testcontainers
+```bash
+$ ./mvnw test -Dtest=UserKafkaTestcontainersTest
+```
+
+## Official site Readme
 Spring Kafka example with JUnit 5 using EmbeddedKafka/`spring-kafka-test` and also using [Testcontainers](https://www.testcontainers.org/).
 
 For the tutorials check the links below,
