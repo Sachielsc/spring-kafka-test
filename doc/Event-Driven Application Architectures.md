@@ -18,19 +18,6 @@ While event-driven architectures have benefits, they can be a challenge to test.
 
 Also, network input and output to and from the broker, the efficiency of the broker, the efficiency of the algorithms processing the event data, and even the structure of the event messages can affect the system performance. There are many factors to consider:
 
-## Factors about testing Event-Driven Application Architectures
-### Logging
-In order to get the data generated when testing an event-driven application, you need comprehensive logging to capture the information and an `aggregation framework` to collect it.
-
-Tools: Examples of such frameworks are Fluentd and Logstash. If you’re using a cloud provider, there are products such as Amazon CloudWatch or Google Cloud Stackdriver. Not only is log aggregation important, but you’ll also need a way to analyze and view the log information once it’s gathered. Then you can use a product such as Kibana, Splunk or Grafana.
-
-This is where distributed tracing comes into play.
-
-### Distributed Tracing
-Distributed tracing is designed to monitor the complete activity path of a transaction throughout the entire system. A tracing client is installed on each computing artifact that hosts a service. The client monitors activity and sends back information organized to a particular workflow instance.
-- Wavefront
-- Jaeger
-
 ### The Testing Hierarchy Still Holds
 The biggest difference between testing synchronous applications and those that are based in event-driven architectures is having to accommodate the asynchronous nature of the interactions. Developers still have to unit test. Integration testing still needs to be done, as does performance and deployment testing.
 
@@ -365,7 +352,7 @@ This is a basic example, and the actual testing logic will depend on your specif
 - TopologyTestDriver is primarily designed for `unit testing` Kafka Streams applications
 - TopologyTestDriver is synchronous in nature. Thus it doesn’t fully reflect the asynchronous aspects of real Kafka cluster behavior
 - The crucial difference between TopologyTestDriver- and TestContainers-based tests is that the former are unit tests, while the latter are integration tests.
-- The problem with EmbeddedKafka or TestContainers tests is that they are asynchronous, and this implies certain difficulties and limitations. To make test code clearer and reduce test running time, you can use the Awaitility library. If you are using Spring, you might also want to take a look at [spring-test-kafka](https://github.com/jupiter-tools/spring-test-kafka), which further simplifies dataset-driven testing of Kafka applications and has Awaitility under the hood
+- The problem with EmbeddedKafka or TestContainers tests is that they are asynchronous, and this implies certain difficulties and limitations. But TopologyTestDriver is synchronous. When using TopologyTestDriver, to make test code clearer and reduce test running time, you can use the Awaitility library. If you are using Spring, you might also want to take a look at [spring-test-kafka](https://github.com/jupiter-tools/spring-test-kafka), which has Awaitility under the hood
 
 ## What does Awaitility do in testing event-driven architecture
 `Awaitility` is a library in the Java ecosystem designed to simplify asynchronous testing, especially in scenarios where you are dealing with event-driven architectures or asynchronous operations. It provides a set of fluent and expressive methods for waiting until certain conditions are met during the test execution.
@@ -408,69 +395,6 @@ In the context of event-driven architectures, `Awaitility` can be particularly h
 
 Keep in mind that while `Awaitility` is a powerful tool for handling asynchronous testing scenarios, it's important to use it judiciously and consider the specific needs and characteristics of your application.
 
-# Vulnerability testing
-## What is Vulnerability testing
-Vulnerability testing is a type of security testing that focuses on identifying vulnerabilities or weaknesses in a system that could be exploited by attackers. The goal is to assess the security posture of a system, application, or network and discover potential weaknesses that could lead to security breaches.
-
-Key aspects of vulnerability testing include:
-
-1. **Identification of Weaknesses:** Vulnerability testing involves actively scanning and probing a system to identify weaknesses in its security controls. This can include vulnerabilities in software, misconfigurations, or other issues that could be exploited.
-
-2. **Common Vulnerabilities and Exposures (CVEs):** Testers often check for known vulnerabilities listed in public databases such as the Common Vulnerabilities and Exposures (CVE) system. These databases maintain a catalog of publicly known security vulnerabilities.
-
-3. **Security Assessments:** Vulnerability testing is part of a broader security assessment strategy. It helps organizations understand their security posture and assess the effectiveness of existing security measures.
-
-4. **Automated Scanning Tools:** Vulnerability testing is often conducted using automated scanning tools that can identify common vulnerabilities quickly and efficiently. These tools scan networks, applications, or systems for known security issues.
-
-5. **Manual Testing:** In addition to automated tools, manual testing is crucial to identify vulnerabilities that automated tools might miss. Manual testing involves in-depth analysis by security experts who simulate real-world attack scenarios.
-
-6. **Penetration Testing:** Vulnerability testing is closely related to penetration testing (pen testing). While vulnerability testing focuses on identifying weaknesses, penetration testing takes it a step further by attempting to exploit these vulnerabilities to demonstrate the potential impact on the system.
-
-7. **Reporting and Remediation:** After identifying vulnerabilities, a detailed report is generated, highlighting the vulnerabilities discovered, their potential impact, and recommended remediation measures. This information helps organizations prioritize and address security issues.
-
-8. **Regular Testing:** Security is an ongoing concern, and vulnerabilities can emerge as new threats arise or as systems change. Regular vulnerability testing is essential to maintaining a strong security posture over time.
-
-Vulnerability testing is a critical component of a comprehensive cybersecurity strategy. It helps organizations proactively identify and address security weaknesses, reducing the risk of security incidents and data breaches. Regular testing, along with a robust patch management process, can significantly enhance the security of systems and applications.
-
-
-# Mozilla Observatory
-The Mozilla Observatory is a web security tool developed by Mozilla, the organization behind the Firefox web browser. It provides a set of tests to evaluate the security of a website or web application. The tool checks for various security best practices and potential vulnerabilities, giving website owners and developers insights into how well their sites are protected.
-
-Website owners and developers can use the Mozilla Observatory by entering their website's URL into the tool's web interface. The Observatory then generates a report with a score and detailed information about the security measures implemented on the site.
-
-Key features of the Mozilla Observatory include:
-
-1. **HTTP Security Headers:** It checks whether a website is using recommended security headers like Strict-Transport-Security (HSTS), Content-Security-Policy (CSP), and others.
-
-2. **TLS Configuration:** It assesses the quality of a website's SSL/TLS configuration, ensuring that secure and up-to-date cryptographic protocols and ciphers are in use.
-
-3. **Third-party Resources:** It examines the third-party resources (scripts, stylesheets, etc.) loaded by a website and provides information about their security implications.
-
-4. **Cookies:** It evaluates the use of cookies on a website and checks if they are marked with the "Secure" attribute, indicating that they should only be sent over HTTPS connections.
-
-5. **Cross-Origin Resource Sharing (CORS):** It checks how a website handles cross-origin resource sharing, ensuring that it is configured securely.
-
-6. **Subresource Integrity (SRI):** It verifies whether a website is using SRI to ensure the integrity of externally hosted resources, such as JavaScript libraries.
-
-7. **Email Spoofing Prevention:** It checks for the presence of SPF (Sender Policy Framework) and DMARC (Domain-based Message Authentication, Reporting, and Conformance) records to help prevent email spoofing.
-
-8. **Security Headers:** It assesses the presence and configuration of various security-related HTTP headers.
-
-[official site](https://observatory.mozilla.org/)
-
-And there are lots of similar scanning tool like:
-- [SSL Test](https://www.ssllabs.com/ssltest/)
-- htbridge.com – TSL/ SSL scanner by High-Tech Bridge
-- tls.imirhil.fr – TSL/ SSL scanner by @aeris22
-- securityheader.com – HTTP Header analyzer by Scott Helme
-- hstspreload.org – HSTS Preload list by Nick Harper 
-
-# What is SSL/TLS?
-SSL (Secure Sockets Layer) and TLS (Transport Layer Security) are `cryptographic protocols` designed to secure communication over a computer network, most commonly the internet. They provide a secure channel between two machines or devices, ensuring that the data transmitted between them remains confidential and tamper-proof. Both SSL and TLS protocols are used to establish secure connections, but TLS is the newer and more secure successor to SSL.
-
-# What are Strict-Transport-Security (HSTS), Content-Security-Policy (CSP)?
-Strict-Transport-Security (HSTS) and Content-Security-Policy (CSP) are HTTP security headers that web developers can use to enhance the security of their websites. These headers provide instructions to web browsers on how to handle certain aspects of the web page, helping to mitigate various security risks.
-
 # Amazon EventBridge
 ## What is Amazon EventBridge?
 Amazon EventBridge is a serverless, fully managed, and scalable event bus that enables integrations between AWS services, Software as a services (SaaS), and your applications. It simplifies the development of event-driven applications by connecting different services using events. Events are notifications that one service can send to notify changes or occurrences, and other services can respond to those events.
@@ -491,7 +415,6 @@ Click [here](https://www.conduktor.io/kafka/how-to-install-apache-kafka-on-windo
    ```
 - Create a User Name and Password for your Linux distribution
 
-mine username is "charles" and the pw is the common one.</br>
 You can find more info from [here](https://learn.microsoft.com/en-us/windows/wsl/setup/environment#set-up-your-linux-username-and-password)
 - Install OpenJDK 17 Ubuntu
 click [here](https://www.linuxcapable.com/how-to-install-openjdk-17-on-ubuntu-linux/) for more info
@@ -606,5 +529,18 @@ Testcontainers is an open source framework for providing throwaway, lightweight 
 
 In many cases, the choice between them depends on the specific testing needs and the overall architecture of your application.
 
-### what is kafdrop
+### What is kafdrop
 Kafdrop is an open-source web-based UI (User Interface) tool designed for monitoring and managing Apache Kafka clusters. Apache Kafka is a distributed streaming platform that is widely used for building real-time data pipelines and streaming applications. Kafdrop provides a convenient way to visualize and interact with Kafka topics, brokers, and consumers.
+
+## Other factors about testing Event-Driven Application Architectures
+### Logging
+In order to get the data generated when testing an event-driven application, you need comprehensive logging to capture the information and an `aggregation framework` to collect it.
+
+Tools: Examples of such frameworks are Fluentd and Logstash. If you’re using a cloud provider, there are products such as Amazon CloudWatch or Google Cloud Stackdriver. Not only is log aggregation important, but you’ll also need a way to analyze and view the log information once it’s gathered. Then you can use a product such as Kibana, Splunk or Grafana.
+
+This is where distributed tracing comes into play.
+
+### Distributed Tracing
+Distributed tracing is designed to monitor the complete activity path of a transaction throughout the entire system. A tracing client is installed on each computing artifact that hosts a service. The client monitors activity and sends back information organized to a particular workflow instance.
+- Wavefront
+- Jaeger
